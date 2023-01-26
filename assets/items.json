@@ -1,0 +1,36 @@
+{
+  "backgrounds": {
+    "ocean": {
+      "image": "himmel og hav bakgrunn.jpg"
+    },
+    "indoor": {
+      "image": "Innendørs bakgrunn.jpg"
+    },
+    "night": {
+      "image": "nattbakgrunn.jpg"
+    },
+    "hillside": {
+      "image": "Åsside overlegg.jpg"
+    },
+    "dessert": {
+      "image": "Ørken overlegg.jpg"
+    }
+  },
+  "items": {
+    "1" : {
+      "image" : "jesus.png",
+      "location" : "P1",
+      "tags": ["jesus", "right", "person"]
+    },
+    "134" : {
+      "image": "lion.png",
+      "location" : "P5",
+      "tags" : ["lion", "left", "animal"]
+    },
+    "15" : {
+      "image": "trees.png",
+      "location" : "P3",
+      "tags" : ["tree", "vegation"]
+    }
+  }
+}

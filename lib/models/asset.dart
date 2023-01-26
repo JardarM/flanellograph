@@ -6,10 +6,10 @@ import 'package:flanellograf/models/item.dart';
 import 'package:flutter/services.dart';
 
 class Assets extends Equatable {
-  List<Background> backgrounds = List<Background>.empty();
+//  List<Background> backgrounds = List<Background>.empty();
   List<Item> items = List<Item>.empty();
 
-  Assets({required this.backgrounds, required this.items});
+  Assets({required this.items});
 
   static Future<Assets> loadAssets(String file) async {
     print("Loading assets from: $file");
@@ -18,13 +18,14 @@ class Assets extends Equatable {
     final Map<String, dynamic> itemsMap = assets["items"];
     final Map<String, dynamic> backgroundsMap = assets["backgrounds"];
     return Assets(
-        backgrounds: backgroundsMap.map((e, v) => MapEntry(e, Background.fromJson(e, v as Map))).values.toList(),
-        items: itemsMap.map((e, v) => MapEntry(e, Item.fromJson(e, v as Map))).values.toList()
+        items: [
+          ...backgroundsMap.map((e, v) => MapEntry(e, Item.fromJsonBackground(e, v as Map))).values.toList(),
+          ...itemsMap.map((e, v) => MapEntry(e, Item.fromJsonItem(e, v as Map))).values.toList()]
     );
   }
 
   @override
-  List<Object?> get props => [...backgrounds, ...items];
+  List<Object?> get props => [...items];
 
   @override
   bool? get stringify => true;

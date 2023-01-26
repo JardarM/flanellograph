@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsBloc extends Bloc<AssetEvent, AssetsState> {
 
-  Assets loaded = Assets(backgrounds: List<Background>.empty(), items: List<Item>.empty() );
+  Assets loaded = Assets(items: List<Item>.empty() );
   String? filter;
 
   AssetsBloc():super(LoadingAssetsState()) {
@@ -30,8 +30,7 @@ class AssetsBloc extends Bloc<AssetEvent, AssetsState> {
     print(assets);
     if ( filter == null || filter.trim() == "") return loaded;
     final ret = Assets(
-        items: assets.items.where((element) => element.id.contains(filter) || element.location.contains(filter) || element.tags.any((te) => te.contains(filter))).toList(),
-        backgrounds: assets.backgrounds.where((element) => element.id.contains(filter),).toList()
+        items: assets.items.where((element) => element.isMatch(filter)).toList(),
     );
     print(ret);
     return ret;

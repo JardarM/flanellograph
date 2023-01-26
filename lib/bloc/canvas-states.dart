@@ -10,7 +10,7 @@ abstract class CanvasState extends Equatable {
 class SceneUpdateState extends CanvasState {
   final List<CanvasItem> items;
   final Item? selectedItem;
-  final Background? background;
+  final Item? background;
 
   SceneUpdateState(this.items, this.selectedItem, this.background);
 

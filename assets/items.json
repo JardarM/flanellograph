@@ -1,19 +1,19 @@
 {
   "backgrounds": {
     "ocean": {
-      "image": "himmel og hav bakgrunn.jpg"
+      "image": "ocean.jpg"
     },
     "indoor": {
-      "image": "Innendørs bakgrunn.jpg"
+      "image": "indoor.jpg"
     },
     "night": {
-      "image": "nattbakgrunn.jpg"
+      "image": "night.jpg"
     },
     "hillside": {
-      "image": "Åsside overlegg.jpg"
+      "image": "hillside.jpg"
     },
     "dessert": {
-      "image": "Ørken overlegg.jpg"
+      "image": "dessert.jpg"
     }
   },
   "items": {
@@ -30,7 +30,17 @@
     "15" : {
       "image": "trees.png",
       "location" : "P3",
-      "tags" : ["tree", "vegation"]
+      "tags" : ["tree", "vegetation"]
+    },
+    "33" : {
+      "image": "apple.png",
+      "location" : "P3",
+      "tags" : ["vegetation"]
+    },
+    "16" : {
+      "image": "chest.png",
+      "location" : "P1",
+      "tags" : ["furniture"]
     }
   }
 }

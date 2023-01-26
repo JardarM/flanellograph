@@ -25,25 +25,6 @@ class MainMenu extends StatelessWidget {
             if (state is LoadingAssetsState) {
               return Center(child: CircularProgressIndicator());
             } else if (state is LoadedAssetsState) {
-              return DropdownButton(
-                value: state.assets.backgrounds.first,
-                onChanged: (value) => print(value),
-                items: state.assets.backgrounds
-                    .map((e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e.id),
-                        ))
-                    .toList(),
-              );
-            } else {
-              throw Exception("Unexpected state: $state");
-            }
-          }),
-          BlocBuilder<AssetsBloc, AssetsState>(builder: (context, state) {
-            print("Asset state: $state");
-            if (state is LoadingAssetsState) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is LoadedAssetsState) {
               return Expanded(
                 child: ListView(
                   children: state.assets.items.map((e) => MenuItem(e)).toList(),

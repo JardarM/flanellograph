@@ -13,12 +13,14 @@ class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
   }
 
   void _addItem(AddItemEvent event, Emitter<CanvasState> emit) {
-    final s = ( state as SceneUpdateState );
-    emit(SceneUpdateState([...(s.items), CanvasItem(item: event.item, offset: event.location)], s.selectedItem, s.background));
-    // print(state);
-    // if ( state is SceneUpdateState ){
-    // }
-    // emit(LoadingSceneState());
+    if ( event.item.type == ItemType.Foreground ){
+      final s = ( state as SceneUpdateState );
+      emit(SceneUpdateState([...(s.items), CanvasItem(item: event.item, offset: event.location)], s.selectedItem, s.background));
+    } else {
+      final s = ( state as SceneUpdateState );
+      emit(SceneUpdateState(s.items, s.selectedItem, event.item));
+
+    }
   }
 
 }

@@ -1,19 +1,25 @@
 {
   "backgrounds": {
     "ocean": {
-      "image": "ocean.jpg"
+      "image": "ocean.png"
     },
     "indoor": {
-      "image": "indoor.jpg"
+      "image": "indoor.png"
     },
     "night": {
       "image": "night.jpg"
     },
     "hillside": {
-      "image": "hillside.jpg"
+      "image": "hillside.png"
     },
     "dessert": {
-      "image": "dessert.jpg"
+      "image": "dessert.png"
+    },
+    "blue": {
+      "image": "blue.png"
+    },
+    "city": {
+      "image": "city.png"
     }
   },
   "items": {

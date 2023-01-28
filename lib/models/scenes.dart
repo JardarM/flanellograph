@@ -14,9 +14,7 @@ class Scenes {
   }
 
   factory Scenes.fromJson(jObj, Map<String, Background> backgrounds, Map<String, Item> items) {
-    print("fromJson");
     final jMap = jObj['scenes'] as Map<String,dynamic>;
-    print(jMap);
     return Scenes(jMap.map((key , value) => MapEntry(key, Scene.fromJson(key, value, backgrounds, items))));
   }
 

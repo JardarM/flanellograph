@@ -21,16 +21,20 @@
       "bible_ref": "3.Luke 6,31-44",
       "liturgical_year" : "B",
       "liturgical_week" : "32",
-      "background" : "night",
+      "background" : "city",
       "tags": ["easter"],
       "items": {
-        "1" : {
+        "33" : {
           "x": 40,
-          "y": 100
+          "y": 500
         },
-        "134" : {
-          "x": 200,
+        "16" : {
+          "x": 400,
           "y": 250
+        },
+        "15" : {
+          "x": 600,
+          "y": 150
         }
       }
     }

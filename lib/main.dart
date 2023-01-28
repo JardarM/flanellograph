@@ -1,5 +1,6 @@
 import 'package:flanellograf/bloc/assets-bloc.dart';
 import 'package:flanellograf/bloc/canvas-bloc.dart';
+import 'package:flanellograf/bloc/scene-bloc.dart';
 import 'package:flanellograf/repos/assets-repo.dart';
 import 'package:flanellograf/widgets/CanvasScene.dart';
 import 'package:flanellograf/widgets/Menu.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
           body: MultiBlocProvider(
             providers: [
                 BlocProvider(create: (context) => CanvasBlock(repo)),
-                BlocProvider(create: (context) => AssetsBloc(repo))
+                BlocProvider(create: (context) => AssetsBloc(repo)),
+                BlocProvider(create: (context) => SceneBloc(repo))
             ],
             child: MainLayout())
       ),

@@ -7,23 +7,29 @@ import '../models/scenes.dart';
 class AssetsRepo {
 
   Scenes? scenes;
-  Assets assets = Assets.empty();
+  Assets? assets;
 
-  Future<Assets> loadAssets() async {
-    final jsonString = await rootBundle.loadString("items.json");
-    final jsonObj = json.decode(jsonString);
-    final ret = Assets.fromJson(jsonObj);
-    assets = ret;
-    return ret;
+  Future<Assets> getAssets() async{
+    if ( assets != null ) assets;
+    return await _loadAssets();
   }
 
-  Future<Scenes> loadScenes() async {
-    final jsonString = await rootBundle.loadString("scenes.json");
-    print(jsonString);
+  Future<Scenes> getScenes() async{
+    if ( scenes != null ) scenes;
+    return await _loadScenes();
+  }
+
+  Future<Assets> _loadAssets() async {
+    final jsonString = await rootBundle.loadString("items.json");
     final jsonObj = json.decode(jsonString);
-    final ret = Scenes.fromJson(jsonObj, assets!.backgrounds, assets!.items);
-    scenes = ret;
-    return ret;
+    return Assets.fromJson(jsonObj);
+  }
+
+  Future<Scenes> _loadScenes() async {
+    final jsonString = await rootBundle.loadString("scenes.json");
+    final jsonObj = json.decode(jsonString);
+    final a = await getAssets();
+    return Scenes.fromJson(jsonObj, a.backgrounds, a.items);
   }
 
   Future<void> saveScene(String name, Scene scene) async {
@@ -31,7 +37,7 @@ class AssetsRepo {
   }
 
   Future<Scene> loadScene(String name) async {
-    scenes ??= await loadScenes();
-    return scenes!.scenes[name]!;
+    final s = await getScenes();
+    return s.scenes[name]!;
   }
 }

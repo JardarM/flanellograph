@@ -1,0 +1,20 @@
+
+import 'package:equatable/equatable.dart';
+import 'package:flanellograf/models/scenes.dart';
+
+abstract class SceneState extends Equatable{
+}
+
+class SceneUpdateState extends SceneState{
+  final Scenes scenes;
+
+  SceneUpdateState(this.scenes);
+
+  @override
+  List<Object?> get props => [scenes];
+
+  factory SceneUpdateState.empty(){
+    return SceneUpdateState(Scenes.empty());
+  }
+
+}

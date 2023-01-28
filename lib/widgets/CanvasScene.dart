@@ -20,7 +20,7 @@ class CanvasScene extends StatelessWidget {
                           ? null
                           : DecorationImage(image: AssetImage(state.scene.background?.image ?? ""), fit: BoxFit.fitWidth)),
                   child: Stack(
-                    children: state.scene.items.values.map((e) => DragableImage(e)).toList(),
+                    children: state.scene.items.values.map((e) => DragableImage(e, key: UniqueKey(),)).toList(),
                   ),
                 ),
             onAccept: (data) {
@@ -36,7 +36,7 @@ class CanvasScene extends StatelessWidget {
 class DragableImage extends StatefulWidget {
   CanvasItem item;
 
-  DragableImage(this.item);
+  DragableImage(this.item, { super.key });
 
   @override
   _DragableImageState createState() => _DragableImageState(item);
@@ -64,7 +64,7 @@ class _DragableImageState extends State<DragableImage> {
               item.offset += details.delta;
             });
           },
-          child: Image.asset(item.item.image, key: imgKey, scale: 3, alignment: Alignment.topLeft),
+          child: Image.asset(item.item.image, scale: 3, alignment: Alignment.topLeft),
         ));
   }
 }

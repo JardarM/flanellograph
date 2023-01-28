@@ -17,7 +17,7 @@ class AssetsBloc extends Bloc<AssetEvent, AssetsState> {
   }
 
   Future<void> _loadAssets(LoadingAssetsEvent event, Emitter<AssetsState> emit) async {
-    loaded =  (await repo.loadAssets()).allItems;
+    loaded =  (await repo.getAssets()).allItems;
     emit(LoadedAssetsState(_filter(loaded, filter)));
   }
 

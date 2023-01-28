@@ -1,0 +1,38 @@
+{
+  "scenes": {
+    "baptism": {
+      "bible": "1.John 2,3-4",
+      "biblical_year" : "A",
+      "biblical_week" : 32,
+      "background" : "night",
+      "tags": [],
+      "items": {
+        "1" : {
+          "x": 40,
+          "y": 100
+        },
+        "134" : {
+          "x": 200,
+          "y": 250
+        }
+      }
+    },
+    "easter": {
+      "bible": "3.Luke 6,31-44",
+      "biblical_year" : "B",
+      "biblical_week" : 32,
+      "background" : "night",
+      "tags": ["easter"],
+      "items": {
+        "1" : {
+          "x": 40,
+          "y": 100
+        },
+        "134" : {
+          "x": 200,
+          "y": 250
+        }
+      }
+    }
+  }
+}

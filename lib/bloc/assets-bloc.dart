@@ -1,23 +1,23 @@
 import 'package:flanellograf/bloc/assets-events.dart';
 import 'package:flanellograf/bloc/assets-states.dart';
-import 'package:flanellograf/models/asset.dart';
-import 'package:flanellograf/models/background.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/repos/assets-repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsBloc extends Bloc<AssetEvent, AssetsState> {
 
-  Assets loaded = Assets(items: List<Item>.empty() );
+  List<ResourceItem> loaded = List<ResourceItem>.empty();
   String? filter;
+  final AssetsRepo repo;
 
-  AssetsBloc():super(LoadingAssetsState()) {
+  AssetsBloc(this.repo):super(LoadingAssetsState()) {
     on<LoadingAssetsEvent>(_loadAssets,);
     on<SearchAssetsEvent>(_filterAssets,);
     add(const LoadingAssetsEvent());
   }
 
   Future<void> _loadAssets(LoadingAssetsEvent event, Emitter<AssetsState> emit) async {
-    loaded =  await Assets.loadAssets("assets/items.json");
+    loaded =  (await repo.loadAssets()).allItems;
     emit(LoadedAssetsState(_filter(loaded, filter)));
   }
 
@@ -26,13 +26,8 @@ class AssetsBloc extends Bloc<AssetEvent, AssetsState> {
     emit(LoadedAssetsState(_filter(loaded, filter)));
   }
 
-  Assets _filter(Assets assets, String? filter){
-    print(assets);
+  List<ResourceItem> _filter(List<ResourceItem> assets, String? filter){
     if ( filter == null || filter.trim() == "") return loaded;
-    final ret = Assets(
-        items: assets.items.where((element) => element.isMatch(filter)).toList(),
-    );
-    print(ret);
-    return ret;
+    return assets.where((element) => element.isMatch(filter)).toList();
   }
 }

@@ -9,8 +9,17 @@ abstract class CanvasEvent extends Equatable {
   const CanvasEvent();
 }
 
+class LoadSceneEvent extends CanvasEvent {
+  final String id;
+
+  const LoadSceneEvent({required this.id});
+
+  @override
+  List<Object?> get props => [id];
+}
+
 class AddItemEvent extends CanvasEvent {
-  final Item item;
+  final ResourceItem item;
   final Offset location;
 
   AddItemEvent(this.item, this.location);

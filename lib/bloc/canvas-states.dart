@@ -2,20 +2,20 @@ import 'package:equatable/equatable.dart';
 import 'package:flanellograf/models/canvasitem.dart';
 import 'package:flanellograf/models/item.dart';
 import 'package:flanellograf/models/background.dart';
+import 'package:flanellograf/models/scene.dart';
 
 abstract class CanvasState extends Equatable {
   const CanvasState();
 }
 
 class SceneUpdateState extends CanvasState {
-  final List<CanvasItem> items;
   final Item? selectedItem;
-  final Item? background;
+  final Scene scene;
 
-  SceneUpdateState(this.items, this.selectedItem, this.background);
+  const SceneUpdateState(this.scene, this.selectedItem);
 
   @override
-  List<Object> get props => [background ?? Object(), selectedItem ?? Object(), ...items];
+  List<Object> get props => [scene];
 }
 
 class LoadingSceneState extends CanvasState {

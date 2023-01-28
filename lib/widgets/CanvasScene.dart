@@ -13,21 +13,18 @@ class CanvasScene extends StatelessWidget {
       if (state is LoadingSceneState) {
         return Center(child: CircularProgressIndicator());
       } else if (state is SceneUpdateState) {
-        return DragTarget<Item>(
+        return DragTarget<ResourceItem>(
             builder: (context, candidateData, rejectedData) => Container(
                   decoration: BoxDecoration(
-                      image: state.background == null
+                      image: state.scene.background == null
                           ? null
-                          : DecorationImage(
-                              image: AssetImage(state.background?.image ?? ""),
-                              fit: BoxFit.fitWidth)),
+                          : DecorationImage(image: AssetImage(state.scene.background?.image ?? ""), fit: BoxFit.fitWidth)),
                   child: Stack(
-                    children: state.items.map((e) => DragableImage(e)).toList(),
+                    children: state.scene.items.values.map((e) => DragableImage(e)).toList(),
                   ),
                 ),
             onAccept: (data) {
-              BlocProvider.of<CanvasBlock>(context)
-                  .add(AddItemEvent(data, Offset(50, 100)));
+              BlocProvider.of<CanvasBlock>(context).add(AddItemEvent(data, Offset(50, 100)));
             });
       } else {
         throw Exception("Unexpected state: ${state}");
@@ -57,18 +54,17 @@ class _DragableImageState extends State<DragableImage> {
     return Positioned(
         left: item.offset.dx ?? 0,
         top: item.offset.dy ?? 0,
-        child: GestureDetector(
+        child: Listener(
           behavior: HitTestBehavior.opaque,
-          onPanDown: (details) {
+          onPointerDown: (details) {
             setState(() {});
           },
-          onPanUpdate: (details) {
+          onPointerMove: (details) {
             setState(() {
               item.offset += details.delta;
             });
           },
-          child: Image.asset(item.item.image,
-              key: imgKey, scale: 3, alignment: Alignment.topLeft),
+          child: Image.asset(item.item.image, key: imgKey, scale: 3, alignment: Alignment.topLeft),
         ));
   }
 }

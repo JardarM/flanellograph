@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flanellograf/models/asset.dart';
+import 'package:flanellograf/models/assets.dart';
 
 abstract class AssetEvent extends Equatable {
   const AssetEvent();

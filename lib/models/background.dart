@@ -1,17 +1,16 @@
-import 'package:equatable/equatable.dart';
+import 'package:flanellograf/models/item.dart';
 
-class Background extends Equatable {
-  String id;
-  String image;
-  Background({required this.id, required this.image});
+class Background extends ResourceItem {
+  Background({required String id, required String image}):super(id, image);
 
   factory Background.fromJson(String id, Map json){
-    return Background(id: id, image: 'background/'+json['image']);
+    return Background(id: id, image: 'backgrounds/'+json['image']);
   }
 
-  @override
-  List<Object?> get props => [id, image];
+
 
   @override
-  bool? get stringify => true;
+  bool isMatch(String searchToken) {
+    return id.contains(searchToken);
+  }
 }

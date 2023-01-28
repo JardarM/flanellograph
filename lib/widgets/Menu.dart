@@ -27,7 +27,7 @@ class MainMenu extends StatelessWidget {
             } else if (state is LoadedAssetsState) {
               return Expanded(
                 child: ListView(
-                  children: state.assets.items.map((e) => MenuItem(e)).toList(),
+                  children: state.assets.map((e) => MenuItem(e)).toList(),
                 ),
               );
             } else {
@@ -41,14 +41,14 @@ class MainMenu extends StatelessWidget {
 }
 
 class MenuItem extends StatelessWidget {
-  Item item;
+  ResourceItem item;
 
   MenuItem(this.item);
 
   @override
   Widget build(BuildContext context) {
-    return LongPressDraggable<Item>(
-        data: this.item,
+    return LongPressDraggable<ResourceItem>(
+        data: item,
         feedback: Image.asset(item.image, height: 100),
         child: Column(
             children: [Text(item.id), Image.asset(item.image, height: 100)]));

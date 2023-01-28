@@ -16,7 +16,7 @@ class CanvasItem extends Equatable{
   }
 
   @override
-  List<Object?> get props => [offset, item];
+  List<Object?> get props => [item.id];
 
   @override
   bool? get stringify => true;

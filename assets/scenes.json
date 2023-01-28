@@ -1,9 +1,9 @@
 {
   "scenes": {
     "baptism": {
-      "bible": "1.John 2,3-4",
-      "biblical_year" : "A",
-      "biblical_week" : 32,
+      "bible_ref": "1.John 2,3-4",
+      "liturgical_year" : "A",
+      "liturgical_week" : "22",
       "background" : "night",
       "tags": [],
       "items": {
@@ -18,9 +18,9 @@
       }
     },
     "easter": {
-      "bible": "3.Luke 6,31-44",
-      "biblical_year" : "B",
-      "biblical_week" : 32,
+      "bible_ref": "3.Luke 6,31-44",
+      "liturgical_year" : "B",
+      "liturgical_week" : "32",
       "background" : "night",
       "tags": ["easter"],
       "items": {

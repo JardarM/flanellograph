@@ -13,8 +13,10 @@ class Scenes {
     return Scenes(<String, Scene>{});
   }
 
-  factory Scenes.fromJson(Map jObj, Map<String, Background> backgrounds, Map<String, Item> items) {
-    final jMap = jObj['scenes'] as Map<String,Map>;
+  factory Scenes.fromJson(jObj, Map<String, Background> backgrounds, Map<String, Item> items) {
+    print("fromJson");
+    final jMap = jObj['scenes'] as Map<String,dynamic>;
+    print(jMap);
     return Scenes(jMap.map((key , value) => MapEntry(key, Scene.fromJson(key, value, backgrounds, items))));
   }
 

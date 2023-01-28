@@ -11,14 +11,17 @@ import 'package:flanellograf/models/scene.dart';
 class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
 
   final AssetsRepo repo;
-  final Scene scene = Scene.empty();
+  Scene scene = Scene.empty();
 
   CanvasBlock(this.repo):super(LoadingSceneState()){
     on<AddItemEvent>(_addItem);
+    on<LoadSceneEvent>(_loadScene);
     emit(SceneUpdateState(scene, null));
   }
 
-  void _loadScene(AddItemEvent event, Emitter<CanvasState> emit) async{
+  void _loadScene(LoadSceneEvent event, Emitter<CanvasState> emit) async{
+    scene = await repo.loadScene(event.id);
+    emit(SceneUpdateState(scene, null));
   }
 
   void _addItem(AddItemEvent event, Emitter<CanvasState> emit) {

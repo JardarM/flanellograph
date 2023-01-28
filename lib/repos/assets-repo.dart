@@ -19,6 +19,7 @@ class AssetsRepo {
 
   Future<Scenes> loadScenes() async {
     final jsonString = await rootBundle.loadString("scenes.json");
+    print(jsonString);
     final jsonObj = json.decode(jsonString);
     final ret = Scenes.fromJson(jsonObj, assets!.backgrounds, assets!.items);
     scenes = ret;
@@ -29,8 +30,8 @@ class AssetsRepo {
     throw Exception("Not implemented!");
   }
 
-  Future<Scene> loadScene(String name){
-    throw Exception("Not implemented!");
+  Future<Scene> loadScene(String name) async {
+    scenes ??= await loadScenes();
+    return scenes!.scenes[name]!;
   }
-
 }

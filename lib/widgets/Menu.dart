@@ -1,6 +1,8 @@
 import 'package:flanellograf/bloc/assets-bloc.dart';
 import 'package:flanellograf/bloc/assets-events.dart';
 import 'package:flanellograf/bloc/assets-states.dart';
+import 'package:flanellograf/bloc/canvas-bloc.dart';
+import 'package:flanellograf/bloc/canvas-events.dart';
 import 'package:flanellograf/models/item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +17,7 @@ class MainMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          OutlinedButton(onPressed: () => BlocProvider.of<CanvasBlock>(context).add(const LoadSceneEvent(id: "baptism")), child: Text("Load scene")),
           TextField(
             decoration: InputDecoration(hintText: "Search..."),
             onChanged: (value) => BlocProvider.of<AssetsBloc>(context)

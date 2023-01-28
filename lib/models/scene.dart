@@ -31,13 +31,17 @@ class Scene extends Equatable {
   }
 
   factory Scene.fromJson(String id, Map jObj, Map<String, Background> backgrounds, Map<String, Item> items){
+    print(id);
+    print(jObj);
     final bg = backgrounds[(jObj['background'] as String)];
-    final jMap = jObj['items'] as Map<String, Map>;
+    final jMap = jObj['items'] as Map<String, dynamic>;
+    print(jMap);
     final itms = jMap.map((key, value) => MapEntry(key,
         CanvasItem(item: items[key]!, offset: Offset(value['x'] as double, value['y'] as double))
     ));
+    print(itms);
     return Scene(id,
-        jObj['bible_ref'] as String, jObj['liturbical_year'] as String, jObj['liturgical_week'] as String,
+        jObj['bible_ref'] as String, jObj['liturgical_year'] as String, jObj['liturgical_week'] as String,
         (jObj["tags"] as List<dynamic>).map((e) => e as String).toList(), bg, itms
     );
   }

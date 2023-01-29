@@ -6,6 +6,8 @@ import 'package:flanellograf/widgets/CanvasScene.dart';
 import 'package:flanellograf/widgets/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localstore/localstore.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -14,6 +16,7 @@ AssetsRepo repo = AssetsRepo();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
           body: MultiBlocProvider(

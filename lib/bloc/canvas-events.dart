@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
-
-import '../models/canvasitem.dart';
-import '../models/item.dart';
+import 'package:flanellograf/models/canvasitem.dart';
+import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/scene.dart';
 
 abstract class CanvasEvent extends Equatable {
   const CanvasEvent();
@@ -16,6 +15,16 @@ class LoadSceneEvent extends CanvasEvent {
 
   @override
   List<Object?> get props => [id];
+}
+
+class SaveSceneEvent extends CanvasEvent{
+  final String id;
+
+  SaveSceneEvent(this.id);
+
+  @override
+  List<Object?> get props => [id];
+
 }
 
 class AddItemEvent extends CanvasEvent {

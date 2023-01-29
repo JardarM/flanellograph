@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flanellograf/models/scene.dart';
 import 'package:flutter/services.dart';
+import 'package:localstore/localstore.dart';
 import '../models/assets.dart';
 import '../models/scenes.dart';
 
@@ -33,7 +34,8 @@ class AssetsRepo {
   }
 
   Future<void> saveScene(String name, Scene scene) async {
-    throw Exception("Not implemented!");
+    final _db = Localstore.instance;
+    _db.collection("scenes").doc("name").set(scene.toMap());
   }
 
   Future<Scene> loadScene(String name) async {

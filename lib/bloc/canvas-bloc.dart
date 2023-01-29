@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flanellograf/bloc/canvas-states.dart';
 import 'package:flanellograf/models/background.dart';
 import 'package:flanellograf/models/canvasitem.dart';
@@ -16,6 +18,7 @@ class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
   CanvasBlock(this.repo):super(LoadingSceneState()){
     on<AddItemEvent>(_addItem);
     on<LoadSceneEvent>(_loadScene);
+    on<SaveSceneEvent>(_saveScene);
     emit(SceneUpdateState(scene, null));
   }
 
@@ -37,4 +40,8 @@ class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
     }
   }
 
+
+  FutureOr<void> _saveScene(SaveSceneEvent event, Emitter<CanvasState> emit) {
+    repo.saveScene(event.id, scene);
+  }
 }

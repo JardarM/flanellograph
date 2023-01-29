@@ -19,6 +19,7 @@ class MainMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          OutlinedButton(onPressed: () => BlocProvider.of<CanvasBlock>(context).add(SaveSceneEvent("jardar")), child: Text("Save")),
           SceneList(),
           TextField(
             decoration: InputDecoration(hintText: "Search..."),

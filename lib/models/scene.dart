@@ -48,6 +48,17 @@ class Scene extends Equatable {
         || items.values.any((element) => element.item.isMatch(searchToken));
   }
 
+  Map<String, dynamic> toMap(){
+    return {
+      "bible_ref": bible_ref,
+      "liturgical_year": liturgical_year,
+      "liturgical_week": liturgical_week,
+      "tags": tags,
+      "background": background?.id ?? null,
+      "items": items.map((key, value) => MapEntry(key, {"x": value.offset.dx, "y": value.offset.dy}))
+    };
+  }
+
   @override
   List<Object?> get props => [id];
 }

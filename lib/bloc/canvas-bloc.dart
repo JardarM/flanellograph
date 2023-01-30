@@ -40,7 +40,6 @@ class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
     }
   }
 
-
   FutureOr<void> _saveScene(SaveSceneEvent event, Emitter<CanvasState> emit) {
     repo.saveScene(event.id, scene);
   }

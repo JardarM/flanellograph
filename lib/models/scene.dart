@@ -10,11 +10,12 @@ class Scene extends Equatable {
   final String bible_ref;
   final String liturgical_year;
   final String liturgical_week;
+  final bool isSystemType;
   final List<String> tags;
   Background? background;
   Map<String, CanvasItem> items;
 
-  Scene(this.id, this.bible_ref, this.liturgical_year, this.liturgical_week, this.tags, this.background, this.items);
+  Scene(this.id, this.isSystemType, this.bible_ref, this.liturgical_year, this.liturgical_week, this.tags, this.background, this.items);
 
   bool addItem(Item item, Offset offset){
     if ( items.containsKey(item.id)) return false;
@@ -27,16 +28,16 @@ class Scene extends Equatable {
   }
 
   factory Scene.empty(){
-    return Scene("", "", "", "", [], null, {});
+    return Scene("", false, "", "", "", [], null, {});
   }
 
-  factory Scene.fromJson(String id, Map jObj, Map<String, Background> backgrounds, Map<String, Item> items){
-    final bg = backgrounds[(jObj['background'] as String)];
+  factory Scene.fromJson(String id, bool isSystemType, Map jObj, Map<String, Background> backgrounds, Map<String, Item> items){
+    final bg = backgrounds[(jObj['background'] as String?)];
     final jMap = jObj['items'] as Map<String, dynamic>;
     final itms = jMap.map((key, value) => MapEntry(key,
         CanvasItem(item: items[key]!, offset: Offset(value['x'] as double, value['y'] as double))
     ));
-    return Scene(id,
+    return Scene(id, isSystemType,
         jObj['bible_ref'] as String, jObj['liturgical_year'] as String, jObj['liturgical_week'] as String,
         (jObj["tags"] as List<dynamic>).map((e) => e as String).toList(), bg, itms
     );

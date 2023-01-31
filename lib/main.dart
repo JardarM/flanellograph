@@ -9,14 +9,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:localstore/localstore.dart';
 
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 
 AssetsRepo repo = AssetsRepo();
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
           body: MultiBlocProvider(

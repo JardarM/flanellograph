@@ -41,6 +41,8 @@ class CanvasBlock extends Bloc<CanvasEvent, CanvasState>{
   }
 
   FutureOr<void> _saveScene(SaveSceneEvent event, Emitter<CanvasState> emit) {
+    print(event.imageData?.length);
+    scene.imageData = event.imageData;
     repo.saveScene(event.id, scene);
   }
 }

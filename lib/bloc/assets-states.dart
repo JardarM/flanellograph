@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
 import '../models/assets.dart';
 
 abstract class AssetsState extends Equatable{

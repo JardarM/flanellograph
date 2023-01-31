@@ -7,6 +7,9 @@ import 'package:flanellograf/bloc/scene-bloc.dart';
 import 'package:flanellograf/bloc/scene-events.dart';
 import 'package:flanellograf/bloc/scene-states.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
+import 'package:flanellograf/utils/widget-renderer.dart';
+import 'package:flanellograf/widgets/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -80,7 +83,8 @@ class SceneMenu extends StatelessWidget{
             decoration: InputDecoration(hintText: "Search..."),
             onChanged: (value) => BlocProvider.of<SceneBloc>(context).add(SearchScenesEvent(value)),
           ),
-          OutlinedButton(onPressed: () => BlocProvider.of<CanvasBlock>(context).add(SaveSceneEvent("jardar")), child: Text("Save")),
+          OutlinedButton(onPressed: () async => BlocProvider.of<CanvasBlock>(context).add(SaveSceneEvent("jardar", await createImageFromRepaintBoundary(canvasKey, imageSize: const Size(600,400)))),
+          child: Text("Save")),
           SceneList(),
         ]
       );
@@ -100,7 +104,12 @@ class SceneList extends StatelessWidget {
                   .map(
                     (e) => OutlinedButton(
                         onPressed: () => BlocProvider.of<CanvasBlock>(context).add(LoadSceneEvent(id: e.id)),
-                        child: Text(e.id)),
+                        child: Column(
+                          children: [
+                            Text(e.id),
+                            e.image
+                          ],
+                        )),
                   )
                   .toList());
         }
@@ -119,7 +128,7 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return LongPressDraggable<ResourceItem>(
         data: item,
-        feedback: Image.asset(item.image, height: 100),
-        child: Column(children: [Text(item.id), Image.asset(item.image, height: 100)]));
+        feedback: SizedBox(width: 100, child: item.image),
+        child: Column(children: [Text(item.id), item.image]));
   }
 }

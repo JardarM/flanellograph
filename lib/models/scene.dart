@@ -1,12 +1,15 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
 import 'package:flanellograf/models/background.dart';
 import 'package:flanellograf/models/canvasitem.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
+import 'package:flutter/material.dart';
 
-class Scene extends Equatable {
-  final String id;
+class Scene extends ResourceItem {
   final String bible_ref;
   final String liturgical_year;
   final String liturgical_week;
@@ -14,8 +17,13 @@ class Scene extends Equatable {
   final List<String> tags;
   Background? background;
   Map<String, CanvasItem> items;
+  Uint8List? imageData;
 
-  Scene(this.id, this.isSystemType, this.bible_ref, this.liturgical_year, this.liturgical_week, this.tags, this.background, this.items);
+  Scene(super.id, this.isSystemType, this.bible_ref, this.liturgical_year, this.liturgical_week, this.tags, this.background, this.items, this.imageData);
+
+  Image get backgroundImage {
+      return background == null ? Image.asset("empty.png") : background!.image;
+  }
 
   bool addItem(Item item, Offset offset){
     if ( items.containsKey(item.id)) return false;
@@ -28,7 +36,7 @@ class Scene extends Equatable {
   }
 
   factory Scene.empty(){
-    return Scene("", false, "", "", "", [], null, {});
+    return Scene("", false, "", "", "", [], null, {}, null);
   }
 
   factory Scene.fromJson(String id, bool isSystemType, Map jObj, Map<String, Background> backgrounds, Map<String, Item> items){
@@ -39,7 +47,7 @@ class Scene extends Equatable {
     ));
     return Scene(id, isSystemType,
         jObj['bible_ref'] as String, jObj['liturgical_year'] as String, jObj['liturgical_week'] as String,
-        (jObj["tags"] as List<dynamic>).map((e) => e as String).toList(), bg, itms
+        (jObj["tags"] as List<dynamic>).map((e) => e as String).toList(), bg, itms, jObj['image_data'] == null ? null : base64.decoder.convert(jObj['image_data'] as String)
     );
   }
 
@@ -56,10 +64,14 @@ class Scene extends Equatable {
       "liturgical_week": liturgical_week,
       "tags": tags,
       "background": background?.id ?? null,
-      "items": items.map((key, value) => MapEntry(key, {"x": value.offset.dx, "y": value.offset.dy}))
+      "items": items.map((key, value) => MapEntry(key, {"x": value.offset.dx, "y": value.offset.dy})),
+      "image_data" : imageData == null ? null : base64.encode(imageData!)
     };
   }
 
   @override
   List<Object?> get props => [id];
+
+  @override
+  Image get image => imageData == null ? Image.asset("empty.png") : Image.memory(imageData!);
 }

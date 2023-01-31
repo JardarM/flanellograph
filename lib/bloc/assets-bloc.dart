@@ -1,6 +1,7 @@
 import 'package:flanellograf/bloc/assets-events.dart';
 import 'package:flanellograf/bloc/assets-states.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
 import 'package:flanellograf/repos/assets-repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -9,7 +9,7 @@ class AssetsRepo {
 
   static const String ItemsResourceName = "items.json";
   static const String ScenesResourceName = "scenes.json";
-  static const String ScenesLocalStoreCollectinoName = "scenes";
+  static const String ScenesLocalStoreCollectinoName = "todos";
 
   Scenes? scenes;
   Assets? assets;
@@ -25,7 +25,7 @@ class AssetsRepo {
     var uScenes = await _loadUserScenes();
     var s = Scenes.empty();
     s.scenes.addAll(sScenes.scenes);
-    s.scenes.addAll(uScenes.scenes);
+//    s.scenes.addAll(uScenes.scenes);
     scenes = s;
     return s;
   }
@@ -54,9 +54,23 @@ class AssetsRepo {
   }
 
   Future<void> saveScene(String name, Scene scene) async {
+
+    final db = Localstore.instance;
+    final id = db.collection('todos').doc().id;
+// save the item
+    db.collection('todos').doc(id).set({
+      'title': 'Todo title',
+      'done': false
+    });
+/*
     print("saveScene $name");
+    print(scene.toMap());
     final _db = Localstore.instance;
-    _db.collection(ScenesLocalStoreCollectinoName).doc(name).set(scene.toMap());
+    final id = Localstore.instance.collection(ScenesLocalStoreCollectinoName).doc().id;
+    print(id);
+//    final s = await _db.collection(ScenesLocalStoreCollectinoName).doc(id).set(scene.toMap());
+    final s = await _db.collection(ScenesLocalStoreCollectinoName).doc(id).set({"test": "test"});
+    print(s);*/
   }
 
   Future<Scene> loadScene(String name) async {

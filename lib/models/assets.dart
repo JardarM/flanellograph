@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flanellograf/models/background.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
 
 class Assets extends Equatable {
   final Map<String,Item> items;

@@ -3,40 +3,61 @@ import 'package:flanellograf/bloc/canvas-events.dart';
 import 'package:flanellograf/bloc/canvas-states.dart';
 import 'package:flanellograf/models/canvasitem.dart';
 import 'package:flanellograf/models/item.dart';
+import 'package:flanellograf/models/resourceitem.dart';
+import 'package:flanellograf/models/scene.dart';
+import 'package:flanellograf/widgets/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class CanvasScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CanvasBlock, CanvasState>(builder: (context, state) {
       if (state is LoadingSceneState) {
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       } else if (state is SceneUpdateState) {
         return DragTarget<ResourceItem>(
-            builder: (context, candidateData, rejectedData) => Container(
-                  decoration: BoxDecoration(
-                      image: state.scene.background == null
-                          ? null
-                          : DecorationImage(image: AssetImage(state.scene.background?.image ?? ""), fit: BoxFit.fitWidth)),
-                  child: Stack(
-                    children: state.scene.items.values.map((e) => DragableImage(e, key: UniqueKey(),)).toList(),
-                  ),
-                ),
+            builder: (context, candidateData, rejectedData) =>
+                RepaintBoundary(child: CanvasSceneView(scene: state.scene), key: canvasKey,),
             onAccept: (data) {
-              BlocProvider.of<CanvasBlock>(context).add(AddItemEvent(data, Offset(50, 100)));
+              BlocProvider.of<CanvasBlock>(context).add(AddItemEvent(data, const Offset(50, 100)));
             });
       } else {
-        throw Exception("Unexpected state: ${state}");
+        throw Exception("Unexpected state: $state");
       }
     });
+  }
+}
+
+class CanvasSceneView extends StatelessWidget {
+  final Scene scene;
+
+  const CanvasSceneView({super.key, required this.scene});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: scene.background == null
+              ? null
+              : DecorationImage(image: scene.backgroundImage.image, fit: BoxFit.fitWidth)),
+      child: Stack(
+        children: scene.items.values
+            .map((e) => DragableImage(
+                  e,
+                  key: UniqueKey(),
+                ))
+            .toList(),
+      ),
+    );
   }
 }
 
 class DragableImage extends StatefulWidget {
   CanvasItem item;
 
-  DragableImage(this.item, { super.key });
+  DragableImage(this.item, {super.key});
 
   @override
   _DragableImageState createState() => _DragableImageState(item);
@@ -64,7 +85,7 @@ class _DragableImageState extends State<DragableImage> {
               item.offset += details.delta;
             });
           },
-          child: Image.asset(item.item.image, scale: 3, alignment: Alignment.topLeft),
+          child: Transform.scale(scale: 0.25, child: item.item.image),
         ));
   }
 }
